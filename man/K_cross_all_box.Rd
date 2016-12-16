@@ -6,7 +6,30 @@
 \usage{
 K_cross_all_box(x, r, correction = TRUE, from = NULL)
 }
+\arguments{
+\item{x}{list(x=coords, marks=integer or factor, bbox=bounding box, columnwise ranges)}
+
+\item{r}{range vector for the function to be estimated at}
+
+\item{correction}{use translation correction?}
+
+\item{from}{optional: target type "i" to compute the cross-K_ij}
+}
+\value{
+An array of size (p,p,k) where p is the number of types and k is the length of r.
+For example, the estimated cross-K(r) of the type pair (i,j) is accessed with  [i,j,].
+}
 \description{
-Quick cross K, rectangle translation border correction
+Compute all cross-K's quickly for a multivariate point pattern observed in a 2d or 3d rectangular box.
+}
+\details{
+By default the cross-K is computed for all two-type combinations.
+}
+\examples{
+x <- list( x = matrix(runif(3 * 1000, 0, 2), ncol=3), marks = sample(1:5, 1000, replace=T), bbox = cbind(c(0,2),c(0,2),c(0,2)))
+r <- seq(0, 0.25, l = 100)
+kest <- K_cross_all_box(x, r = r)
+plot(r, kest[1,2,])
+
 }
 

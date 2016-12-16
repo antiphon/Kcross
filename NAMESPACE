@@ -3,6 +3,7 @@
 export(K_box)
 export(K_cross_all_box)
 export(K_cross_sp)
+export(check_mpp)
 export(iK_box)
 export(iK_cross_all_box)
 export(intensity_adapted)
