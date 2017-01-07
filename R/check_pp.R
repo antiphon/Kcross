@@ -9,8 +9,10 @@
 check_mpp <- function(x, marked = TRUE){
   if("ppp"%in%is(x)){
     window <- x$window
-    if(marked) m <- marks(x)
-    if(is.null(m)) stop("marks not found.")
+    if(marked) {
+      m <- marks(x)
+      if(is.null(m)) stop("marks not found.")
+    } else m <- NULL
     x <- list(x=as.matrix(coords(x)), marks = m)
     x$bbox <- cbind(window$xrange, window$yrange)
   }
