@@ -9,4 +9,3 @@ K_cross_sp(x, r)
 \description{
 K cross for all, using spatstat
 }
-

@@ -14,4 +14,3 @@ check_mpp(x, marked = TRUE)
 \description{
 check pattern format
 }
-

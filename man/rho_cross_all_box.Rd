@@ -9,4 +9,3 @@ rho_cross_all_box(x, r, adjust = 1, correction = TRUE)
 \description{
 Quick cross 2nd order product density, rectangle translation border correction
 }
-

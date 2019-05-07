@@ -12,4 +12,3 @@ rho_box(x, r, bw, adjust = 1, correction = TRUE, kern = 1)
 \description{
 Quick univ 2nd order product density, rectangle translation border correction
 }
-

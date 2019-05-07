@@ -9,4 +9,3 @@ pcf_cross_all_box(x, r, ...)
 \description{
 Quick cross 2nd pcf, rectangle translation border correction
 }
-

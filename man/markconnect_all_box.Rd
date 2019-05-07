@@ -9,4 +9,3 @@ markconnect_all_box(x, r, ...)
 \description{
 Quick mark connect, rectangle translation border correction
 }
-

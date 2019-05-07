@@ -20,4 +20,3 @@ iK_cross_all_box(x, r, int, correction = TRUE)
 quick cross K, translation border correction
 assumes rectangnular window
 }
-

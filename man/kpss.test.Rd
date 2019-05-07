@@ -18,4 +18,3 @@ kpss.test(x, h, nx = 100, alpha = 0.05)
 \description{
 Test of stationarity in a rectangle.
 }
-

@@ -9,4 +9,3 @@ K_box(x, r, correction = TRUE)
 \description{
 Quick K, rectangle translation border correction
 }
-
