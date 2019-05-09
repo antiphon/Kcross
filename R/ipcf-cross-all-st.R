@@ -48,13 +48,17 @@ ipcf_st_cross_all_box <- function(x, int, r, t, bbox, sigmas, do_correction = TR
   S <- matrix(Ss, ntypes, ntypes)
   if(!do_correction) S <- S / vol
   # compile the pcf's
-  G <- array(dim = c(ntypes, ntypes, nt, nr))
-  for(ir in 1:nr)
-    for(it in 1:nt){
-      G[,,it,ir] <- matrix(V[[(ir-1)*nt + it]], ncol = ntypes, nrow = ntypes) * S
+  if(ntypes > 1) {
+    G <- array(dim = c(ntypes, ntypes, nt, nr))
+    for(ir in 1:nr)
+      for(it in 1:nt){
+        G[,,it,ir] <- matrix(V[[(ir-1)*nt + it]], ncol = ntypes, nrow = ntypes) * S
+    }
   }
-  #browser()
-
+  else{
+    #browser()
+    G <- t( matrix(unlist(V), nrow = nt ) )
+  }
   # done
   G
 }
