@@ -61,6 +61,10 @@ c_ipcf_local_2d_box <- function(x, bbox, intensities, bw, r, adjust, correction)
     .Call('_Kcross_c_ipcf_local_2d_box', PACKAGE = 'Kcross', x, bbox, intensities, bw, r, adjust, correction)
 }
 
+c_ipcf_st_cross_2d_box <- function(x, bbox, ntypes, types, intensities, r, t, sigmas, correction) {
+    .Call('_Kcross_c_ipcf_st_cross_2d_box', PACKAGE = 'Kcross', x, bbox, ntypes, types, intensities, r, t, sigmas, correction)
+}
+
 c_pcf_biv_2d_box <- function(x, n1, r, bw, bbox, correction) {
     .Call('_Kcross_c_pcf_biv_2d_box', PACKAGE = 'Kcross', x, n1, r, bw, bbox, correction)
 }

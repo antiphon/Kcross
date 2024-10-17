@@ -1,3 +1,4 @@
+#include <R.h>
 #include "kernels.h"
 
 double epa_kernel(double d){
@@ -23,5 +24,8 @@ double box_kernel(double d){
 void print_i_n(int i, int n){ // only every 100th
   if(i % 100 == 0) Rprintf("           \r[%i/%i]", i, n);
 }
-void print_none(int i, int n){
+void print_none(int i, int n){}
+
+double gauss_kernel(double d){
+  return exp(- 0.5 * d * d) / 2.50663;
 }

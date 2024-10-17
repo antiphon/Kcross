@@ -253,6 +253,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// c_ipcf_st_cross_2d_box
+List c_ipcf_st_cross_2d_box(NumericMatrix x, NumericMatrix bbox, int ntypes, NumericVector types, NumericVector intensities, NumericVector r, NumericVector t, NumericVector sigmas, int correction);
+RcppExport SEXP _Kcross_c_ipcf_st_cross_2d_box(SEXP xSEXP, SEXP bboxSEXP, SEXP ntypesSEXP, SEXP typesSEXP, SEXP intensitiesSEXP, SEXP rSEXP, SEXP tSEXP, SEXP sigmasSEXP, SEXP correctionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type bbox(bboxSEXP);
+    Rcpp::traits::input_parameter< int >::type ntypes(ntypesSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type types(typesSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type intensities(intensitiesSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type r(rSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type t(tSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type sigmas(sigmasSEXP);
+    Rcpp::traits::input_parameter< int >::type correction(correctionSEXP);
+    rcpp_result_gen = Rcpp::wrap(c_ipcf_st_cross_2d_box(x, bbox, ntypes, types, intensities, r, t, sigmas, correction));
+    return rcpp_result_gen;
+END_RCPP
+}
 // c_pcf_biv_2d_box
 NumericVector c_pcf_biv_2d_box(NumericMatrix x, int n1, NumericVector r, double bw, NumericMatrix bbox, int correction);
 RcppExport SEXP _Kcross_c_pcf_biv_2d_box(SEXP xSEXP, SEXP n1SEXP, SEXP rSEXP, SEXP bwSEXP, SEXP bboxSEXP, SEXP correctionSEXP) {
@@ -338,6 +357,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_Kcross_c_ipcf_cross_2d_box", (DL_FUNC) &_Kcross_c_ipcf_cross_2d_box, 9},
     {"_Kcross_c_ipcf_2d_box", (DL_FUNC) &_Kcross_c_ipcf_2d_box, 7},
     {"_Kcross_c_ipcf_local_2d_box", (DL_FUNC) &_Kcross_c_ipcf_local_2d_box, 7},
+    {"_Kcross_c_ipcf_st_cross_2d_box", (DL_FUNC) &_Kcross_c_ipcf_st_cross_2d_box, 9},
     {"_Kcross_c_pcf_biv_2d_box", (DL_FUNC) &_Kcross_c_pcf_biv_2d_box, 6},
     {"_Kcross_c_pcf_2d_box", (DL_FUNC) &_Kcross_c_pcf_2d_box, 6},
     {"_Kcross_c_rho_cross_2d_box", (DL_FUNC) &_Kcross_c_rho_cross_2d_box, 9},

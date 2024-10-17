@@ -9,3 +9,7 @@ double box_kernel(double d);
 
 void print_i_n(int i, int n);
 void print_none(int i, int n);
+
+double epa_kernel(double d);
+double box_kernel(double d);
+double gauss_kernel(double d);
