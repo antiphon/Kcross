@@ -4,9 +4,8 @@
 \alias{K_cross_sp}
 \title{K cross for all, using spatstat}
 \usage{
-K_cross_sp(x, r)
+K_cross_sp(x, r, mc.cores = 2)
 }
 \description{
 K cross for all, using spatstat
 }
-

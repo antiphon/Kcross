@@ -5,7 +5,7 @@
 \title{quick cross K, translation border correction
 assumes rectangnular window}
 \usage{
-iK_cross_all_box(x, r, int, correction = TRUE)
+iK_cross_all_box(x, r, int, correction = TRUE, verb = FALSE)
 }
 \arguments{
 \item{x}{point pattern, multivariate}
@@ -15,9 +15,10 @@ iK_cross_all_box(x, r, int, correction = TRUE)
 \item{int}{vector of intensities per point}
 
 \item{correction}{use or not use translation correction}
+
+\item{verb}{print some iterations}
 }
 \description{
 quick cross K, translation border correction
 assumes rectangnular window
 }
-

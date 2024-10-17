@@ -82,43 +82,43 @@ J_cross_all_sp <- function(x, r) {
 }
 
 # Check D cross
-if(0){
-  library(spatstat)
-  set.seed(1)
-  N <- 400
-  M <- 4
-  x <- setmarks(rpoint(N), factor(sample(1:M, N, T)))#
-  r <- seq(0, .15, l = 50)
-  #t0 <- system.time( g <- Gcross(x, i=1, r=r, j = 2) )
-  t0 <- system.time( g <- D_cross_all_sp(x, r = r) )
-  t1 <- system.time( gg <- D_cross_all_box(x, r = r) )
-  par(mfrow=c(1,1))
-  plot(r, g[1,2,], "l", ylim =c(0,2), lwd=3)
-  lines(r, g[2,1,], col=1, lty=2, lwd=3)
-  lines(r, gg[1,2,], col=3, lty=2, lwd=2)
-  lines(r, gg[2,1,], col=3, lty=2, lwd=2)
-  abline(h = 1, col=2)
-  print(range(gg))
-  print(rbind(t0,t1))
-}
-
-
-# Check J-cross
-if(0){
-  library(spatstat)
-  set.seed(1)
-  N <- 400
-  M <- 4
-  x <- setmarks(rpoint(N), factor(sample(1:M, N, T)))#
-  r <- seq(0, .1, l = 80)
-  t0 <- system.time( J <- J_cross_all_sp(x, r = r) )
-  t1 <- system.time( JJ <- J_cross_all_box(x, r = r) )
-  par(mfrow=c(1,1))
-  plot(r, J[1,2,], "l", ylim =c(0,2), lwd=3)
-  lines(r, J[2,1,], "l", ylim =c(0,2), lwd=3, col=2, lty=2)
-  lines(r, JJ[1,2,], col=3, lty=2, lwd=2)
-  lines(r, JJ[2,1,], col=4, lty=2, lwd=2)
-  abline(h = 1, col=2)
-  print(rbind(t0,t1))
-  # close enough. Different b-corrections lead to different values.
-}
+# if(0){
+#   library(spatstat)
+#   set.seed(1)
+#   N <- 400
+#   M <- 4
+#   x <- setmarks(rpoint(N), factor(sample(1:M, N, T)))#
+#   r <- seq(0, .15, l = 50)
+#   #t0 <- system.time( g <- Gcross(x, i=1, r=r, j = 2) )
+#   t0 <- system.time( g <- D_cross_all_sp(x, r = r) )
+#   t1 <- system.time( gg <- D_cross_all_box(x, r = r) )
+#   par(mfrow=c(1,1))
+#   plot(r, g[1,2,], "l", ylim =c(0,2), lwd=3)
+#   lines(r, g[2,1,], col=1, lty=2, lwd=3)
+#   lines(r, gg[1,2,], col=3, lty=2, lwd=2)
+#   lines(r, gg[2,1,], col=3, lty=2, lwd=2)
+#   abline(h = 1, col=2)
+#   print(range(gg))
+#   print(rbind(t0,t1))
+# }
+#
+#
+# # Check J-cross
+# if(0){
+#   library(spatstat)
+#   set.seed(1)
+#   N <- 400
+#   M <- 4
+#   x <- setmarks(rpoint(N), factor(sample(1:M, N, T)))#
+#   r <- seq(0, .1, l = 80)
+#   t0 <- system.time( J <- J_cross_all_sp(x, r = r) )
+#   t1 <- system.time( JJ <- J_cross_all_box(x, r = r) )
+#   par(mfrow=c(1,1))
+#   plot(r, J[1,2,], "l", ylim =c(0,2), lwd=3)
+#   lines(r, J[2,1,], "l", ylim =c(0,2), lwd=3, col=2, lty=2)
+#   lines(r, JJ[1,2,], col=3, lty=2, lwd=2)
+#   lines(r, JJ[2,1,], col=4, lty=2, lwd=2)
+#   abline(h = 1, col=2)
+#   print(rbind(t0,t1))
+#   # close enough. Different b-corrections lead to different values.
+# }

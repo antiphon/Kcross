@@ -4,25 +4,25 @@
 
 using namespace Rcpp;
 
-//#define PI (3.141592653589793)
+#define PI (3.141592653589793)
 
 // [[Rcpp::export]]
-NumericMatrix c_K_partial_box(NumericMatrix x, 
-                     NumericMatrix bbox, 
+NumericMatrix c_K_partial_box(NumericMatrix x,
+                     NumericMatrix bbox,
                      NumericVector r) {
-  
+
   int i, j, l, s, t;
   double d2, w;
   int nr;
-  
+
   int n = x.nrow();
   int dim = x.ncol();
   NumericVector r2 = r*r;
   nr = r.length();
-  
-  
+
+
   NumericMatrix Nindiv(n,nr);
-  
+
   double rmax = r(nr-1);
   double rmax2 = rmax*rmax;
   NumericVector boxlen(dim);
@@ -31,7 +31,7 @@ NumericMatrix c_K_partial_box(NumericMatrix x,
   for(i=0; i < dim; i++) V *= boxlen[i];
   double lambda = (n-1)/V;
   NumericVector pir2 = PI * r2 * lambda;
-  
+
   // main loop
   for(i=0; i < n-1; i++) {
     for(j=i+1; j < n; j++) {
@@ -56,13 +56,13 @@ NumericMatrix c_K_partial_box(NumericMatrix x,
   for(i=0; i < n; i++) {
     for(t = 0; t < nr; t++) {
       for(s = 0; s < nr; s++) {
-        w = 0.5 * ( (Nindiv(i,t)-pir2[t]) + (Nindiv(i,s)-pir2[s])  ); 
+        w = 0.5 * ( (Nindiv(i,t)-pir2[t]) + (Nindiv(i,s)-pir2[s])  );
         Ks(t,s) += w;
-        
+
       }
     }
   }
-  
+
   // compile result
   return Ks;
 }

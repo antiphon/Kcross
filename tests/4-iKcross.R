@@ -14,7 +14,7 @@ int <- unlist(ints)
 
 k <- Kcross.inhom(x, lambdaI = ints[[1]], lambdaJ = ints[[2]])
 
-k2 <- iK_cross_all_box(x, r = k$r, int = int)
+k2 <- iK_cross_all_box(x, r = k$r, int = int, verb=T)
 
 plot(k$trans, col=2)
 lines(k$theo, col=3)

@@ -1,5 +1,4 @@
-# test K from_one
-
+# Test the edge correction in K
 library(devtools)
 load_all(".")
 library(spatstat)
@@ -9,9 +8,8 @@ r <- seq(0, .3, l=20)
 
 #Rprof()
 t0 <- system.time(  k <- K_cross_all_box(x, r)  )
-t1 <- system.time(  k1 <- K_cross_all_box(x, r, from=1)  )
+t1 <- system.time(  k1 <- K_cross_all_box(x, r, correction=F)  )
 #summaryRprof()
 
-print( all.equal(k[1,,], k1[1,,]) )
-
-print(rbind(t0,t1))
+plot(k[1,1,])
+points(k1[1,1,])

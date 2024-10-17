@@ -4,14 +4,14 @@
 #' @export
 #' @import spatstat Rcpp
 #' @useDynLib Kcross
-rho_cross_all_box <- function(x, r, adjust = 1, correction = TRUE) {
+rho_cross_all_box <- function(x, r, adjust = 1, correction = TRUE, kernel_correction = TRUE, verb = 0) {
   xy <- as.matrix(coords(x))
   types <-  as.integer(marks(x))
   ntypes <- length(unique(types))
   bb <- as.matrix( with(x$window, cbind(xrange, yrange)) )
   intensities <- intensity(x)
   # go
-  V <- c_rho_cross_2d_box(xy, bb, types, intensities, r, adjust, correction)
+  V <- c_rho_cross_2d_box(xy, bb, types, intensities, r, adjust, correction, kernel_correction, verb)
   #
   # compile the pcf's
   G <- array(dim = c(ntypes, ntypes, length(r)))
@@ -24,6 +24,7 @@ rho_cross_all_box <- function(x, r, adjust = 1, correction = TRUE) {
 
 #' Quick cross 2nd pcf, rectangle translation border correction
 #'
+#' Bandwidth asymmetric: for g_ij h_ij = adjust * 0.15 / sqrt(lambda_j)
 #'
 #' @export
 #' @import spatstat Rcpp
@@ -43,14 +44,16 @@ pcf_cross_all_box <- function(x, r, ...) {
 #' @export
 #' @import spatstat Rcpp
 #' @useDynLib Kcross
-rho_box <- function(x, r, bw, adjust = 1, correction = TRUE, kern = 1){
+rho_box <- function(x, r, bw, adjust = 1, correction = TRUE, kern = 1, kernel_correction=1){
   xy <- as.matrix(coords(x))
   bb <- as.matrix( with(x$window, cbind(xrange, yrange)) )
-  int <- intensity(unmark(x))
-  if(missing(bw)) bw <- adjust * 0.15 / sqrt(int)
 
+  if(missing(bw)) {
+    int <- intensity(unmark(x))
+    bw <- adjust * 0.15 / sqrt(int)
+  }
   # go
-  V <- c_rho_2d_box(xy, bb, int, r, bw, correction, kern)
+  V <- c_rho_2d_box(xy, bb, r, bw, correction, kernel_correction, kern)
   #
   V
 }
@@ -69,7 +72,7 @@ rho_box <- function(x, r, bw, adjust = 1, correction = TRUE, kern = 1){
 #' @useDynLib Kcross
 
 pcf_box <- function(x, r, ..., int_type = "n") {
-  rho_box(x,r, ...)/(pi*intensity_adapted(unmark(x), r, type=int_type)^2)
+  rho_box(x,r, ...)/(pi * intensity_adapted(unmark(x), r, type=int_type)^2)
 }
 
 ####################################################

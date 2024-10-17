@@ -20,4 +20,3 @@ iK_box(x, r, int, correction = TRUE)
 quick K, border correction
 assumes rectangnular window
 }
-

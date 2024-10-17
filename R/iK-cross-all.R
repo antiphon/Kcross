@@ -4,11 +4,11 @@
 #' @param r range vector
 #' @param int vector of intensities per point
 #' @param correction use or not use translation correction
-#'
+#' @param verb print some iterations
 #' @export
 
 
-iK_cross_all_box <- function(x, r, int, correction = TRUE) {
+iK_cross_all_box <- function(x, r, int, correction = TRUE, verb = FALSE) {
   xy <- as.matrix(coords(x))
   types <-  as.integer(marks(x))
   ntypes <- length(unique(types))
@@ -17,7 +17,7 @@ iK_cross_all_box <- function(x, r, int, correction = TRUE) {
   if(missing(int)) stop(m)
   if(length(int) != x$n) stop(m)
   # go
-  V <- c_iK_cross_2d_box(xy, bb, types, ntypes, int, r, correction)
+  V <- c_iK_cross_2d_box(xy, bb, types, ntypes, int, r, correction, verb)
   #
   # compile the K's
   K <- array(dim = c(ntypes, ntypes, length(r)))

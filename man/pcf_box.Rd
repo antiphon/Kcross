@@ -21,4 +21,3 @@ Quick univ pcf, rectangle translation border correction
 \details{
 See int_type in intensity_adapted
 }
-

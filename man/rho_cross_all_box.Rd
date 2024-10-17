@@ -4,9 +4,15 @@
 \alias{rho_cross_all_box}
 \title{Quick cross 2nd order product density, rectangle translation border correction}
 \usage{
-rho_cross_all_box(x, r, adjust = 1, correction = TRUE)
+rho_cross_all_box(
+  x,
+  r,
+  adjust = 1,
+  correction = TRUE,
+  kernel_correction = TRUE,
+  verb = 0
+)
 }
 \description{
 Quick cross 2nd order product density, rectangle translation border correction
 }
-

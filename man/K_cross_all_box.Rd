@@ -32,4 +32,3 @@ kest <- K_cross_all_box(x, r = r)
 plot(r, kest[1,2,])
 
 }
-

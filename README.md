@@ -7,7 +7,8 @@ Idea is to compute all cross-K's fast, not just one pair. Main function is *K_cr
 * Translation edge correction
 * Supports only a rectangular/cuboidal window at the moment.
 
+Some inhomogeneous versions are included.
 
-Other functions are poorly documented and usually only for 2d.
+Further functions are usually poorly documented and only for 2d.
 
 Contact the author in case you want something developed further.

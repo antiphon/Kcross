@@ -4,7 +4,15 @@
 \alias{rho_box}
 \title{Quick univ 2nd order product density, rectangle translation border correction}
 \usage{
-rho_box(x, r, bw, adjust = 1, correction = TRUE, kern = 1)
+rho_box(
+  x,
+  r,
+  bw,
+  adjust = 1,
+  correction = TRUE,
+  kern = 1,
+  kernel_correction = 1
+)
 }
 \arguments{
 \item{kern}{1=epa, 2=box}
@@ -12,4 +20,3 @@ rho_box(x, r, bw, adjust = 1, correction = TRUE, kern = 1)
 \description{
 Quick univ 2nd order product density, rectangle translation border correction
 }
-

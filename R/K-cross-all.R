@@ -119,18 +119,18 @@ K_box <- function(x, r, correction = TRUE) {
 #' @export
 #' @import spatstat Rcpp
 #' @useDynLib Kcross
-K_cross_sp <- function(x, r) {
-  library(parallel)
+K_cross_sp <- function(x, r, mc.cores = 2) {
+  require(parallel)
   sp <- levels(droplevels(x$marks))
   nsp <-  length(sp)
   # upper triangle
   K <- NULL
   for(si in 1:nsp) {
     i <- sp[si]
-    k <- mclapply(si:nsp, function(sj) {
+    k <- parallel::mclapply(si:nsp, function(sj) {
       j <- sp[sj]
       Kcross(x, i, j, r=r, correction="trans")$trans
-    }, mc.cores=3)
+    }, mc.cores=mc.cores)
     K <- rbind(K, do.call(rbind, k))
   }
   # make an array of matrices
@@ -153,63 +153,63 @@ K_cross_sp <- function(x, r) {
 
 
 
-
-# Check
-if(0){
-  library(spatstat)
-  W <- square(2)
-  #source("load-data.R")
-  #x <- pats[[1]]
-  set.seed(1)
-  n <- 2*3000
-  M <- 10
-  x <- setmarks(rpoint(n, win = W), factor(sample(1:M, n, T)))#
-  r <- seq(0, .3, l = 20)
-  t0 <- system.time( k <- K_cross_sp(x, r=r) )
-  t1 <- system.time( kk <- K_cross_all_box(x, r = r) )
-  par(mfrow=c(1,1))
-  o <- pi*r^2
-  plot(r, k[2,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
-  lines(r, kk[2,1,]-o, col=3, lty=2, lwd=2)
-  for(i in 3:10){
-    lines(r, k[i,1,]-o, "l", lwd=3)
-    lines(r, kk[i,1,]-o, col=3, lty=2, lwd=2)
-  }
-
-  print(rbind(t0,t1))
-}
-
-
-# Check univ
-if(0){
-  library(spatstat)
-  set.seed(125)
-  n <- 2*3000
-  x <- rpoint(n)
-  r <- seq(0, .3, l = 20)
-  t0 <- system.time( k <- Kest(x, r=r, correction="trans") )
-  t1 <- system.time( kk <- K_box(x, r = r) )
-  par(mfrow=c(1,1))
-  o <- pi*r^2
-  plot(r, k$trans-o, "l", lwd=3, ylim=c(-1,1)*.01)
-  lines(r, kk-o, col=3, lty=2, lwd=2)
-  print(rbind(t0,t1))
-}
-
-
-
-# Check
-if(0){
-  library(spatstat)
-  set.seed(1)
-  n <- 2*1000
-  M <- 2
-  x <- setmarks(rpoint(n), factor(sample(1:M, n, T)))#
-  r <- seq(0, .3, l = 20)
-  t1 <- system.time( kk <- K_cross_all_box(x, r = r) )
-  par(mfrow=c(1,1))
-  o <- pi*r^2
-  plot(r, kk[2,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
-  lines(r, kk[1,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
-  print(rbind(t0,t1))
-}
+#
+# # Check
+# if(0){
+#   library(spatstat)
+#   W <- square(2)
+#   #source("load-data.R")
+#   #x <- pats[[1]]
+#   set.seed(1)
+#   n <- 2*3000
+#   M <- 10
+#   x <- setmarks(rpoint(n, win = W), factor(sample(1:M, n, T)))#
+#   r <- seq(0, .3, l = 20)
+#   t0 <- system.time( k <- K_cross_sp(x, r=r) )
+#   t1 <- system.time( kk <- K_cross_all_box(x, r = r) )
+#   par(mfrow=c(1,1))
+#   o <- pi*r^2
+#   plot(r, k[2,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
+#   lines(r, kk[2,1,]-o, col=3, lty=2, lwd=2)
+#   for(i in 3:10){
+#     lines(r, k[i,1,]-o, "l", lwd=3)
+#     lines(r, kk[i,1,]-o, col=3, lty=2, lwd=2)
+#   }
+#
+#   print(rbind(t0,t1))
+# }
+#
+#
+# # Check univ
+# if(0){
+#   library(spatstat)
+#   set.seed(125)
+#   n <- 2*3000
+#   x <- rpoint(n)
+#   r <- seq(0, .3, l = 20)
+#   t0 <- system.time( k <- Kest(x, r=r, correction="trans") )
+#   t1 <- system.time( kk <- K_box(x, r = r) )
+#   par(mfrow=c(1,1))
+#   o <- pi*r^2
+#   plot(r, k$trans-o, "l", lwd=3, ylim=c(-1,1)*.01)
+#   lines(r, kk-o, col=3, lty=2, lwd=2)
+#   print(rbind(t0,t1))
+# }
+#
+#
+#
+# # Check
+# if(0){
+#   library(spatstat)
+#   set.seed(1)
+#   n <- 2*1000
+#   M <- 2
+#   x <- setmarks(rpoint(n), factor(sample(1:M, n, T)))#
+#   r <- seq(0, .3, l = 20)
+#   t1 <- system.time( kk <- K_cross_all_box(x, r = r) )
+#   par(mfrow=c(1,1))
+#   o <- pi*r^2
+#   plot(r, kk[2,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
+#   lines(r, kk[1,1,]-o, "l", lwd=3, ylim=c(-1,1)*.01)
+#   print(rbind(t0,t1))
+# }

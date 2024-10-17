@@ -26,4 +26,3 @@ type:
 
 as in IPSS'08 p 193-194.
 }
-

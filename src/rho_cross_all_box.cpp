@@ -23,7 +23,9 @@ List c_rho_cross_2d_box(NumericMatrix x,
                         NumericVector intensities,
                         NumericVector r,
                         double adjust,
-                        int correction) {
+                        int correction,
+                        bool kernel_correction,
+                        int verb = 0 ) {
 
   int i, j, k, l, t1, t2, idx1, idx2;
   double d, d2, w;
@@ -43,6 +45,9 @@ List c_rho_cross_2d_box(NumericMatrix x,
 
   for(i = 0; i < nr; i++) pcfs.at(i).resize(ntypes * ntypes);
 
+  void (*verbose)(int i, int n) = print_none;
+  if(verb > 0) verbose = &print_i_n;
+
   double rmax = r(nr-1);
   double dr;
   NumericVector upper_limit = (rmax + bws) * (rmax + bws);
@@ -50,9 +55,24 @@ List c_rho_cross_2d_box(NumericMatrix x,
   NumericVector boxlen(dim);
   for(i=0; i < dim; i++) boxlen[i] = bbox(1,i) - bbox(0,i);
 
+  NumericMatrix kern_edge_weight(r.size(), ntypes);
+  for(i =0; i < ntypes; i ++)
+  for(k = 0; k < nr; k++) {
+    if(kernel_correction){
+      w = r(k)/bws(i);
+      kern_edge_weight(k, i) = epa_cumu(w);
+    }
+    else{
+      kern_edge_weight(k, i) = 1;
+    }
+  }
+
+
+
   // main loop
   for(i=0; i < n-1; i++) {
     t1 = types(i) - 1;
+    verbose(i+1, n);
       for(j=i+1; j < n; j++) {
         t2 = types(j) - 1;
         // distance^2
@@ -70,15 +90,15 @@ List c_rho_cross_2d_box(NumericMatrix x,
             idx1 = t1 + ntypes * t2;
             idx2 = t2 + ntypes * t1;
             for(k = 0; k < nr; k++){
-              dr = fmax(d, r(k));
-              pcfs.at(k).at(idx1) += epa_kernel((r(k)-d)/bws(t2))/(bws(t2) * w * dr );
-              pcfs.at(k).at(idx2) += epa_kernel((r(k)-d)/bws(t1))/(bws(t1) * w * dr );
+              dr = d;//fmax(d, r(k));
+              pcfs.at(k).at(idx1) += epa_kernel((r(k)-d)/bws(t2))/(bws(t2) * w * dr * kern_edge_weight(k, t2));
+              pcfs.at(k).at(idx2) += epa_kernel((r(k)-d)/bws(t1))/(bws(t1) * w * dr * kern_edge_weight(k, t1));
             }
           }
         }
       }
   }
-
+  if(verb > 0) Rprintf("\n");
   // compile result
   return wrap(pcfs);
 }
@@ -88,10 +108,10 @@ List c_rho_cross_2d_box(NumericMatrix x,
 // [[Rcpp::export]]
 NumericVector c_rho_2d_box(NumericMatrix x,
                            NumericMatrix bbox,
-                           double intensity,
                            NumericVector r,
                            double bw,
                            int correction,
+                           int kernel_correction,
                            int kern = 1) {
 
   int i, j, k, l;
@@ -117,6 +137,17 @@ NumericVector c_rho_2d_box(NumericMatrix x,
   NumericVector boxlen(dim);
   for(i=0; i < dim; i++) boxlen[i] = bbox(1,i) - bbox(0,i);
 
+  NumericVector kern_edge_weight(r.size());
+  for(k = 0; k < nr; k++) {
+      if(kernel_correction){
+        w = r(k)/bw;
+        kern_edge_weight(k) = epa_cumu(w);
+      }
+      else{
+        kern_edge_weight(k) = 1;
+      }
+  }
+
   // main loop
   for(i=0; i < n-1; i++) {
     for(j=i+1; j < n; j++) {
@@ -133,8 +164,8 @@ NumericVector c_rho_2d_box(NumericMatrix x,
           }
           w *= bw;
           for(k = 0; k < nr; k++){
-            dr = fmax(d, r(k));
-            pcf.at(k) += kernel((r(k)-d)/bw) / ( w * dr );
+            dr = d;//fmax(d, r(k));
+            pcf.at(k) += kernel((r(k)-d)/bw) / ( w * dr * kern_edge_weight(k));
           }
         }
       }

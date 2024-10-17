@@ -14,4 +14,3 @@ intersect_bbox_with_disc(x, r)
 \description{
 Page 486 in IPSS08
 }
-

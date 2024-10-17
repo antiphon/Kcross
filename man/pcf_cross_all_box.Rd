@@ -7,6 +7,5 @@
 pcf_cross_all_box(x, r, ...)
 }
 \description{
-Quick cross 2nd pcf, rectangle translation border correction
+Bandwidth asymmetric: for g_ij h_ij = adjust * 0.15 / sqrt(lambda_j)
 }
-
